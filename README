@@ -1,7 +1,13 @@
 Extension 0:
 Normal viterbi results in 94.9% accuracy
 
-
 Extension 3:
 Case Insensitive viterbi results in 93.9% accuracy
+Whenever a word is recorded or used it is changed to lowercase only
+
+Extension 4:
+
+
+Extension 5:
+
 
