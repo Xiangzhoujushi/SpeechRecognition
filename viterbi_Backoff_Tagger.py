@@ -3,8 +3,9 @@ from os.path import join
 import numpy as np
 import operator
 
-
-# from patrick.viterbi import Viterbi; v = Viterbi()
+"""
+This viterbi uses a letter-based backoff
+"""
 class Viterbi(object):
 
     def __init__(self, folder='/vagrant/Lab2/SpeechRecognition/'):

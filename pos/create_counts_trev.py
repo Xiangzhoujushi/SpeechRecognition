@@ -22,7 +22,7 @@ with open ("pos_train.txt","r") as infile:
             # keep 1/2 as 1\/2 
             parts=wordtag.split("/")
             tag=parts.pop()
-            word="/".join(parts)
+            word="/".join(parts).lower()
             #
             # update counters
             if tag not in word_given_tag_counts:
@@ -40,6 +40,5 @@ for pos1 in pos_tags:
 	for pos2 in pos_tags:
 		print ('[{}][{}] = '+str(tag_given_tag_counts[pos1][pos2])).format(pos1, pos2)
 print ("count[NN][VB] = "+str(tag_given_tag_counts["NN"]["VB"]))
-print ("count[NN][dog] = "+str(word_given_tag_counts["NN"]["dog"]))
-
-            
+print ("count[DT][the] = "+str(word_given_tag_counts["DT"]["the"]))
+print ("count[DT][The] = "+str(word_given_tag_counts["DT"]["The"]))            
