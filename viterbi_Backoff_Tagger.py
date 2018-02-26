@@ -8,7 +8,7 @@ This viterbi uses a letter-based backoff
 """
 class Viterbi(object):
 
-    def __init__(self, folder='/vagrant/Lab2/SpeechRecognition/'):
+    def __init__(self, folder=''):
         self.folder = folder
         self.neginf = -1000.0  # approximate negative infinity log probability (P=0)
         self.small = -7.0  # approximate very small probability (P=0.0000001)
@@ -70,6 +70,7 @@ class Viterbi(object):
                                 word_given_tag_counts[tag][word] += 1
                                 tag_given_tag_counts[lasttag][tag] += 1
                                 priortags = tags
+
                 else:
                     # *** SOLUTION 2: treat multi-tags as their own tags (EX: VBP|VB, NN|CD)
                     lasttag = '<s>'  # start symbol begins each sentence (simplifies algorithm)
@@ -91,6 +92,84 @@ class Viterbi(object):
                         word_given_tag_counts[tag][word] += 1
                         tag_given_tag_counts[lasttag][tag] += 1
                         lasttag = tag
+
+	#Katz backoff method
+	#if count>5, leave if <5 good turing
+	"""
+	word tag adjustment
+	"""
+	seen6 = float(0)
+	seen5 = float(0)
+	seen4 = float(0)
+	seen3 = float(0)
+	seen2 = float(0)
+	seen1 = float(0)
+	#Get N#
+	for tag in list(word_given_tag_counts.keys()):
+		for word in list(word_given_tag_counts[tag].keys()):
+			if word_given_tag_counts[tag][word] == 6:
+				seen6 += 1		 	
+			if word_given_tag_counts[tag][word] == 5:
+				seen5 += 1		 	
+			if word_given_tag_counts[tag][word] == 4:
+				seen4 += 1		 	
+			if word_given_tag_counts[tag][word] == 3:
+				seen3 += 1		 	
+			if word_given_tag_counts[tag][word] == 2:
+				seen2 += 1		 	
+			if word_given_tag_counts[tag][word] == 1:
+				seen1 += 1		 	
+
+	for tag in list(word_given_tag_counts.keys()):
+		for word in list(word_given_tag_counts[tag].keys()):
+			if word_given_tag_counts[tag][word] == 5:
+				word_given_tag_counts[tag][word] = (6)*(seen6/seen5)
+			if word_given_tag_counts[tag][word] == 4:
+				word_given_tag_counts[tag][word] = (5)*(seen5/seen4)
+			if word_given_tag_counts[tag][word] == 3:
+				word_given_tag_counts[tag][word] = (4)*(seen4/seen3)
+			if word_given_tag_counts[tag][word] == 2:
+				word_given_tag_counts[tag][word] = (3)*(seen3/seen2)
+			if word_given_tag_counts[tag][word] == 1:
+				word_given_tag_counts[tag][word] = (2)*(seen2/seen1)
+
+	"""
+	tag tag adjustment
+	"""
+	seen6 = float(0)
+	seen5 = float(0)
+	seen4 = float(0)
+	seen3 = float(0)
+	seen2 = float(0)
+	seen1 = float(0)
+	#Get N#
+	for tag in list(tag_given_tag_counts.keys()):
+		for word in list(tag_given_tag_counts[tag].keys()):
+			if tag_given_tag_counts[tag][word] == 6:
+				seen6 += 1		 	
+			if tag_given_tag_counts[tag][word] == 5:
+				seen5 += 1		 	
+			if tag_given_tag_counts[tag][word] == 4:
+				seen4 += 1		 	
+			if tag_given_tag_counts[tag][word] == 3:
+				seen3 += 1		 	
+			if tag_given_tag_counts[tag][word] == 2:
+				seen2 += 1		 	
+			if tag_given_tag_counts[tag][word] == 1:
+				seen1 += 1		 	
+
+	for tag in list(tag_given_tag_counts.keys()):
+		for word in list(tag_given_tag_counts[tag].keys()):
+			if tag_given_tag_counts[tag][word] == 5:
+				tag_given_tag_counts[tag][word] = (6)*(seen6/seen5)
+			if tag_given_tag_counts[tag][word] == 4:
+				tag_given_tag_counts[tag][word] = (5)*(seen5/seen4)
+			if tag_given_tag_counts[tag][word] == 3:
+				tag_given_tag_counts[tag][word] = (4)*(seen4/seen3)
+			if tag_given_tag_counts[tag][word] == 2:
+				tag_given_tag_counts[tag][word] = (3)*(seen3/seen2)
+			if tag_given_tag_counts[tag][word] == 1:
+				tag_given_tag_counts[tag][word] = (2)*(seen2/seen1)
 
         return word_given_tag_counts, tag_given_tag_counts, unique_words
 

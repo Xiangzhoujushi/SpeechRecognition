@@ -8,7 +8,7 @@ This Viterbi is case insensitive by lowercasing all words
 """
 class Viterbi(object):
 
-    def __init__(self, folder='/vagrant/Lab2/SpeechRecognition/'):
+    def __init__(self, folder=''):
         self.folder = folder
         self.neginf = -1000.0  # approximate negative infinity log probability (P=0)
         self.small = -7.0  # approximate very small probability (P=0.0000001)
