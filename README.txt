@@ -27,7 +27,8 @@ starting a sentence or a proper noun.
 ------------
 Extension 4:
 ------------
-
+(Vertebri_trigram.py)
+It works well, but it somehow takes very long time to run. Because the nodes having 0 probability are taken into accounts. Please wait carefully. It has 96% of accuracy when I run
 
 ------------
 Extension 5:
@@ -36,4 +37,7 @@ Extension 5:
 For this extension we used the Katz back-off method. If the count is equal to 5 or less then we replace the count with the Good-Turing count instead.
 This resulted in a very slight increase to 95% accuracy. There is not a huge improvement since only small counts have been modified, but this does leave room
 in the probability for unknown/unseen words. 
+
+Running the file dose not need any arguments.
+We assume the position of the testing file.
 
